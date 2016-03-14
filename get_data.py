@@ -18,7 +18,12 @@ with open('bigfile.txt', 'w') as outf:
     for repo in g.get_repos()[counter : counter + increment]:
       #prints public repos, id, language, size, name
       # print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.html_url))
-      outf.write("{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url })))
+      try:
+        outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
+      except Exception as e:
+        pass
+
+      outf.write(outstr)
     outf.flush()
     counter += increment
     print("first {} repos downloaded".format(counter))
