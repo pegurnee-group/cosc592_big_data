@@ -14,7 +14,6 @@ with open('bigfile.txt', 'w') as outf:
   for repo in g.get_repos()[:150]:
     #prints public repos, id, language, size, name
     # print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.html_url))
-    print(repo.id)
-    outf.write("{}, {}, {}\n".format(repo.id, repo.language, repo.html_url))
+    outf.write("{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url })))
 
 print("first 150 repos downloaded")
