@@ -11,9 +11,14 @@ for repo in g.get_user().get_repos():
     print (repo.name) #prints all of my repos
 
 with open('bigfile.txt', 'w') as outf:
-  for repo in g.get_repos()[:150]:
-    #prints public repos, id, language, size, name
-    # print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.html_url))
-    outf.write("{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url })))
-
-print("first 150 repos downloaded")
+  counter = 0
+  increment = 25
+  LIMIT = 500
+  while counter < LIMIT:
+    for repo in g.get_repos()[counter : counter + increment]:
+      #prints public repos, id, language, size, name
+      # print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.html_url))
+      outf.write("{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url })))
+    outf.flush()
+    counter += increment
+    print("first {} repos downloaded".format(counter))
