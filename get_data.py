@@ -1,4 +1,5 @@
 import json
+
 from github import Github
 
 with open('credentials') as fp:
@@ -11,4 +12,5 @@ for repo in g.get_user().get_repos():
 
 for repo in g.get_repos():
   #prints public repos, id, language, size, name
-  print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.full_name))
+  #repo.id repo
+  print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.html_url))
