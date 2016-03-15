@@ -10,7 +10,7 @@ g = Github(creds['username'], creds['password'])
 for repo in g.get_user().get_repos():
     print (repo.name) #prints all of my repos
 
-with open('bigfile.json', 'w') as outf:
+with open('in/bigfile.json', 'w') as outf:
   counter = 0
   increment = 25
   LIMIT = 500
