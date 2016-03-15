@@ -10,14 +10,13 @@ g = Github(creds['username'], creds['password'])
 for repo in g.get_user().get_repos():
     print (repo.name) #prints all of my repos
 
-with open('bigfile.txt', 'w') as outf:
+with open('bigfile.json', 'w') as outf:
   counter = 0
   increment = 25
   LIMIT = 500
   while counter < LIMIT:
     for repo in g.get_repos()[counter : counter + increment]:
-      #prints public repos, id, language, size, name
-      # print("{}: {} {} \n\t{}".format(repo.id, repo.language, repo.size, repo.html_url))
+      #prints public repos: id, language, url
       try:
         outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
       except Exception as e:
