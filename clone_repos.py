@@ -9,4 +9,8 @@ for language in languages:
       src = '{}.git'.format(repo['url'])
       dest = 'code/{}/{}'.format(repo['language'], repo['id'])
       print('cloned: {}'.format(src))
-      the_repo = Repo.clone_from(src, dest)
+      
+      try:
+        the_repo = Repo.clone_from(src, dest)
+      except Exception as e:
+        pass
