@@ -13,3 +13,5 @@ for key in repos:
   with open("filtered_out/{}.json".format(key), 'w') as fp:
     for repo in repos[key]:
       fp.write("{}\n".format(json.dumps(repo)))
+
+print('data filtering finished')

@@ -14,3 +14,5 @@ for language in languages:
         the_repo = Repo.clone_from(src, dest)
       except Exception as e:
         pass
+
+print('cloning finished')

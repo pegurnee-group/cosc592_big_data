@@ -16,10 +16,10 @@ with open('in/bigfile.json', 'w') as outf:
       #prints public repos: id, language, url
       try:
         outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
+        outf.write(outstr)
       except Exception as e:
         pass
 
-      outf.write(outstr)
     outf.flush()
     counter += increment
-    print("first {} repos downloaded".format(counter))
+    print("first {0} repo information obtained".format(counter))
