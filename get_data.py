@@ -1,11 +1,10 @@
-import json, sys
+import json, sys, getopt, datetime
 
-from getopt import getopt
 from github import Github
 
 optstring = 'f:s:n:'
 
-opts, args = getopt(sys.argv[1:], optstring)
+opts, args = getopt.getopt(sys.argv[1:], optstring)
 
 credentials_file  = 'credentials'
 start_value       = 0
@@ -29,17 +28,22 @@ with open('in/bigfile.json', 'w') as outf:
   increment = 25
   LIMIT = counter + download_number
   while counter < LIMIT:
-    for repo in g.get_repos(counter)[: increment]:
-      if repo.fork:
-        print('repo {} is a fork!'.format(repo.id))
-        LIMIT += 1
-        continue
-      #prints public repos: id, language, url
-      try:
-        outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
-        outf.write(outstr)
-      except Exception as e:
-        pass
+    try:
+      for repo in g.get_repos(counter)[: increment]:
+        if repo.fork:
+          print('repo {} is a fork!'.format(repo.id))
+          LIMIT += 1
+          continue
+        #prints public repos: id, language, url
+        try:
+          outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
+          outf.write(outstr)
+        except Exception as e:
+          pass
+    except Exception as e:
+      print('Rate limit reached, last repo of note was {}'.format(counter))
+      print('Limit expires: {}'.format(datetime.datetime.fromtimestamp(g.rate_limiting_resettime)))
+      break
 
     outf.flush()
     counter += increment
