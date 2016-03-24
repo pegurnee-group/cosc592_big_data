@@ -29,7 +29,11 @@ with open('in/bigfile.json', 'w') as outf:
   increment = 25
   LIMIT = counter + download_number
   while counter < LIMIT:
-    for repo in g.get_repos()[counter : counter + increment]:
+    for repo in g.get_repos(counter)[: increment]:
+      if repo.fork:
+        print('repo {} is a fork!'.format(repo.id))
+        LIMIT += 1
+        continue
       #prints public repos: id, language, url
       try:
         outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
