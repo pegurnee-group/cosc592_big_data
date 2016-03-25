@@ -10,6 +10,7 @@ credentials_file  = 'credentials'
 start_value       = 0
 download_number   = 3000
 store_file        = 'in/bigfile.json'
+archive_file      = 'in/all_repos.json'
 
 for o,v in opts:
   if o == '-f':
@@ -52,3 +53,7 @@ with open(store_file, 'w') as outf:
     outf.flush()
     counter += increment
     print("first {0} repo information obtained".format(counter))
+
+if archive_file:
+  with open(store_file) as newf, open(archive_file, 'a') as archf:
+    archf.write(newf.read())
