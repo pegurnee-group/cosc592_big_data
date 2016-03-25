@@ -1,4 +1,4 @@
-import json, sys, getopt, datetime
+import json, sys, getopt, datetime, os, shutil
 
 from github import Github
 
@@ -9,6 +9,7 @@ opts, args = getopt.getopt(sys.argv[1:], optstring)
 credentials_file  = 'credentials'
 start_value       = 0
 download_number   = 3000
+store_file        = 'in/bigfile.json'
 
 for o,v in opts:
   if o == '-f':
@@ -23,7 +24,10 @@ with open(credentials_file) as fp:
 
 g = Github(creds['username'], creds['password'])
 
-with open('in/bigfile.json', 'w') as outf:
+if os.path.isfile(store_file):
+  shutil.copyfile(store_file, '{}.bak'.format(store_file))
+
+with open(store_file, 'w') as outf:
   counter = start_value
   increment = 25
   LIMIT = counter + download_number
