@@ -36,7 +36,6 @@ with open(store_file, 'w') as outf:
     try:
       for repo in g.get_repos(counter)[: increment]:
         if repo.fork:
-          print('repo {} is a fork!'.format(repo.id))
           LIMIT += 1
           continue
         #prints public repos: id, language, url
@@ -46,6 +45,10 @@ with open(store_file, 'w') as outf:
         except Exception as e:
           pass
     except Exception as e:
+      outf.flush()
+      with open('error.log', 'a') as log:
+        log.write('Rate limit reached, last repo of note was {}'.format(repo.id))
+        log.write('Limit expires: {}'.format(datetime.datetime.fromtimestamp(g.rate_limiting_resettime)))
       print('Rate limit reached, last repo of note was {}'.format(counter))
       print('Limit expires: {}'.format(datetime.datetime.fromtimestamp(g.rate_limiting_resettime)))
       break
