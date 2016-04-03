@@ -1,4 +1,4 @@
-which python3 #check if python3 installed
+which python3 > /dev/null 2>&1 #check if python3 installed
 if [ $? -eq 1 ]
 then
     echo "Python3 is not installed, please install Python3 and run script again"
