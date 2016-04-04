@@ -12,16 +12,24 @@ then
 
     python -mplatform | grep -qi CentOS && yum install yum-utils && yum-builddep python && curl -O https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz   && tar xf Python-3.5.0.tgz && cd Python-3.5.0 && ./configure && make && make install && ln -s /usr/local/bin/python3 /usr/bin/python3
 
-    python -mplatform | grep -qi Darwin && brew install python3
+    python -mplatform | grep -qi Darwin # if OSX
     if [ $? -eq 0 ]
     then
-      echo "Python3 installed"
+      brew --version > /dev/null 2>&1
+      if [ $? -eq 1 ]
+      then
+        echo "Homebrew not installed"
+      else
+        brew install python3
+      fi
+
+
     fi
 fi
 python3 -c "import setuptools" # check if pip3 is installed
 if [ $? -eq 0 ] #true
 then
-    ln -s /usr/local/bin/pip3 /usr/bin/pip3 #temporary, find better way
+    sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3 #temporary, find better way
     echo "Installing PyGithub and GitPython"
     pip3 install PyGithub
     pip3 install GitPython
@@ -34,7 +42,7 @@ else
       echo "Install failed, try running as root or with 'sudo'"
     else
       echo "Pip was successfully installed, retrying PyGithub and GitPython installation"
-      ln -s /usr/local/bin/pip3 /usr/bin/pip3 
+      sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3
       pip3 install PyGithub
       pip3 install GitPython
       echo "Updating and upgrading system"
