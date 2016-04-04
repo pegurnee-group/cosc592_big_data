@@ -29,7 +29,10 @@ fi
 python3 -c "import setuptools" # check if pip3 is installed
 if [ $? -eq 0 ] #true
 then
-    sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3 #temporary, find better way
+    if [ ! -e /usr/bin/pip3 ]; # if symlink doesn't exist, create one
+      then
+        sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3
+      fi
     echo "Installing PyGithub and GitPython"
     pip3 install PyGithub
     pip3 install GitPython
