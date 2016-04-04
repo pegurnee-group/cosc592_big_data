@@ -48,6 +48,17 @@ else
       sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3
       pip3 install PyGithub
       pip3 install GitPython
-      echo "Updating and upgrading system"
     fi
+fi
+echo "Updating and upgrading system"
+python -mplatform | grep -qi CentOS
+if [ $? -eq 0 ]
+then
+  sudo yum upgrade
+fi
+python -mplatform | grep -qi Darwin
+if [ $? -eq 0 ]
+then
+  echo "Brew cannot be updated as root, please use 'brew install' "
+  continue
 fi
