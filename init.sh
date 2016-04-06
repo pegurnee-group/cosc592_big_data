@@ -59,6 +59,6 @@ fi
 python -mplatform | grep -qi Darwin
 if [ $? -eq 0 ]
 then
-  echo "Brew cannot be updated as root, please use 'brew install' "
-  continue
+  su $(logname) -c "brew update"
+
 fi
