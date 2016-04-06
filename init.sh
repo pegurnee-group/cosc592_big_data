@@ -1,4 +1,6 @@
 #!/bin/bash
+IN="./in"
+CREDENTIALS="./credentials"
 if (( $EUID != 0 )); then
     echo "Please run as root"
     exit
@@ -60,5 +62,16 @@ python -mplatform | grep -qi Darwin
 if [ $? -eq 0 ]
 then
   su $(logname) -c "brew update"
-
+fi
+python -mplatform | grep -qi Ubuntu
+if [ $? -eq 0 ]
+then
+  sudo apt-get install update && sudo apt-get upgrade
+fi
+#create 'credentials' and 'in' folder
+if [ ! -d "$CREDENTIALS" ]; then
+  mkdir "$CREDENTIALS"
+fi
+if [ ! -d "$IN" ]; then
+  mkdir "$IN"
 fi
