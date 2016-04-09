@@ -3,4 +3,4 @@ __pycache__
 code/
 in/
 filtered_out/
-.class
+*.class
