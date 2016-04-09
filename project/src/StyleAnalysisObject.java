@@ -25,5 +25,11 @@ public class StyleAnalysisObject implements Writable {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public String toString(){
+		
+		return numberCloseBraces+"+"+numberOpenBracesOnOwnLine;
+	}
+	
 
 }
