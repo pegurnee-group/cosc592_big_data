@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -20,9 +21,27 @@ public class CodeBraceStyleMapper extends
 		int numberCloseBraces = 0;
 		int numberOpenBracesOnOwnLine = 0;
 		
-		//java regex magic
+		//java regex magic -- dont need :P
 		
-		context.write(key, new StyleAnalysisObject(numberCloseBraces, numberOpenBracesOnOwnLine));
+	  Scanner in  = new Scanner((Readable) value);
+	  int commentCounter = 0;
+	  while(in.hasNext()){
+		  String line = in.nextLine().trim();
+		  if(line.length() != 0){
+			  if(line.charAt(0) == '{'){
+				  numberOpenBracesOnOwnLine++; 
+			  } else if(line.charAt(0) == '}'){
+				  numberCloseBraces++;
+			  } 
+			  if(line.indexOf("//") > -1){
+				  commentCounter++;
+			  }
+			
+		  }
+  
+	  }
+		
+	  context.write(key, new StyleAnalysisObject(numberCloseBraces, numberOpenBracesOnOwnLine));
 		
 	}
 
