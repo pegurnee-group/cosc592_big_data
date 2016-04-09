@@ -56,7 +56,7 @@ echo "Updating and upgrading system"
 python -mplatform | grep -qi CentOS
 if [ $? -eq 0 ]
 then
-  sudo yum upgrade
+  sudo yum -y upgrade
 fi
 python -mplatform | grep -qi Darwin
 if [ $? -eq 0 ]
@@ -66,7 +66,7 @@ fi
 python -mplatform | grep -qi Ubuntu
 if [ $? -eq 0 ]
 then
-  sudo apt-get install update && sudo apt-get upgrade
+  sudo apt-get -y install update && sudo apt-get -y upgrade
 fi
 #create 'credentials' and 'in' folder
 if [ ! -d "$CREDENTIALS" ]; then
