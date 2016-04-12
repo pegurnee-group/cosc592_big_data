@@ -40,7 +40,7 @@ with open(store_file, 'w') as outf:
           continue
         #prints public repos: id, language, url
         try:
-          outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url }))
+          outstr = "{}\n".format(json.dumps({ "id":repo.id, "language":repo.language, "url":repo.html_url, "size":repo.size, "forks": repo.forks_count, "starred": repo.stargazers_count, "watchers": repo.watchers_count }))
           outf.write(outstr)
         except Exception as e:
           pass
