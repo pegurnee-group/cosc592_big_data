@@ -1,39 +1,35 @@
-import java.util.Map;
-
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.FileInputFormat;
-import org.apache.hadoop.mapred.FileOutputFormat;
-import org.apache.hadoop.mapred.JobClient;
-import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.Reducer;
-import org.apache.hadoop.mapred.TextInputFormat;
-import org.apache.hadoop.mapred.TextOutputFormat;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 
 public class gitHubbing {
 
 	 public static void main(String[] args) throws Exception {
-			     JobConf conf = new JobConf(CodeBraceStyleMapper.class);
-		  	     conf.setJobName("githubbing");
-		 	
-		 	     conf.setOutputKeyClass(Text.class);
-			     conf.setOutputValueClass(IntWritable.class);
-		 	
-		 	     conf.setMapperClass((Class<? extends Mapper>) CodeBraceStyleMapper.class);
-		 	     conf.setReducerClass((Class<? extends Reducer>) StyleAnalysisReducer.class);
-		  	
-		 	     conf.setInputFormat(TextInputFormat.class);
-		 	     conf.setOutputFormat(TextOutputFormat.class);
-		 	
-	 	     FileInputFormat.setInputPaths(conf, new Path(args[0]));
-		 	     FileOutputFormat.setOutputPath(conf, new Path(args[1]));
-		 	
-		 	     
-		 	     JobClient.runJob(conf);
+		 if (args.length != 2) {
+		      System.err.println("Usage: gitHubbing <input path> <output path>");
+		      System.exit(-1);
+		    }
+
+		 @SuppressWarnings("deprecation")
+		Job job = new Job();
+		    job.setJarByClass(gitHubbing.class);
+		    job.setJobName("gitHubbing");
+
+		    FileInputFormat.addInputPath(job, new Path(args[0]));
+		    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		    job.setMapperClass(CodeBraceStyleMapper.class);
+		    job.setReducerClass(StyleAnalysisReducer.class);
+
+		    job.setOutputKeyClass(Text.class);
+		    job.setOutputValueClass(IntWritable.class);
+
+		    System.exit(job.waitForCompletion(true) ? 0 : 1);
 	 	   }
 
 }
