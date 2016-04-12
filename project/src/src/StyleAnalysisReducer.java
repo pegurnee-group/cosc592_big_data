@@ -1,3 +1,4 @@
+package src;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
