@@ -2,18 +2,19 @@ package src;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.*;
 
 public class CodeBraceStyleMapper extends
-		Mapper<CodeLanguage, Text, CodeLanguage, StyleAnalysisObject> {
+		Mapper<LongWritable, Text, CodeLanguage, StyleAnalysisObject> {
 	
 	@Override
 	protected void map(
-			CodeLanguage key,
+			LongWritable key,
 			Text value,
-			Mapper<CodeLanguage, Text, CodeLanguage, StyleAnalysisObject>.Context context)
+			Mapper<LongWritable, Text, CodeLanguage, StyleAnalysisObject>.Context context)
 			throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
 		super.map(key, value, context);
@@ -42,7 +43,7 @@ public class CodeBraceStyleMapper extends
   
 	  }
 		
-	  context.write(key, new StyleAnalysisObject(numberCloseBraces, numberOpenBracesOnOwnLine));
+	  context.write(CodeLanguage.JAVA, new StyleAnalysisObject(numberCloseBraces, numberOpenBracesOnOwnLine));
 		
 	}
 
