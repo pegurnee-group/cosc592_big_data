@@ -5,7 +5,6 @@ import java.util.Scanner;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.*;
 
 public class CodeBraceStyleMapper extends
 		Mapper<LongWritable, Text, CodeLanguage, StyleAnalysisObject> {
@@ -14,10 +13,10 @@ public class CodeBraceStyleMapper extends
 	protected void map(
 			LongWritable key,
 			Text value,
-			Mapper<LongWritable, Text, CodeLanguage, StyleAnalysisObject>.Context context)
+			Context context)
 			throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
-		super.map(key, value, context);
+//		super.map(key, value, context);
 		
 		//please do java regex
 		int numberCloseBraces = 0;
@@ -25,7 +24,7 @@ public class CodeBraceStyleMapper extends
 		
 		//java regex magic -- dont need :P
 		
-	  Scanner in  = new Scanner((Readable) value);
+	  Scanner in  = new Scanner(value.toString());
 	  int commentCounter = 0;
 	  while(in.hasNext()){
 		  String line = in.nextLine().trim();

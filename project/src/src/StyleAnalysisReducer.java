@@ -1,19 +1,14 @@
 package src;
-import org.apache.hadoop.mapreduce.Reducer;
-
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.*;
+import org.apache.hadoop.mapreduce.Reducer;
 
 public class StyleAnalysisReducer extends
 		Reducer<CodeLanguage, StyleAnalysisObject, CodeLanguage, DoubleWritable > {
 
-	 public void reduce(CodeLanguage key, Iterable<StyleAnalysisObject> values,
+	@Override
+	 protected void reduce(CodeLanguage key, Iterable<StyleAnalysisObject> values,
              Context context) throws IOException, InterruptedException {
 		 
 		 
