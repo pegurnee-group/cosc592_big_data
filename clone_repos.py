@@ -5,7 +5,7 @@ from git import Repo
 
 #languages = {'PHP', 'C', 'C#', 'C++', 'CSS', 'HTML', 'Java', 'JavaScript', 'Objective-C', 'PHP', 'Python', 'Ruby', 'Rust'}
 #only worrying about java right now
-languages = { 'Java' }
+languages = { 'Java', 'C', 'JavaScript' }
 for language in languages:
   with open('filtered_out/{}.json'.format(language)) as fp:
     num_repos = 0
