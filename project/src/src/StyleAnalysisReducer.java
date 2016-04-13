@@ -22,7 +22,7 @@ public class StyleAnalysisReducer extends
 
 		}
 
-		percentage = (sumOfOpening / (sumOfOpening + sumOfClosing)) * 100;
+		percentage = (sumOfOpening / (sumOfOpening + (double)sumOfClosing)) * 100.0;
 
 		context.write(key, new DoubleWritable(percentage));
 	}
