@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json, sys, getopt, datetime, os, shutil
 
 from github import Github
