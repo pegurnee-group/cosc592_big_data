@@ -7,7 +7,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class CodeBraceStyleMapper extends
+public class StyleAnalysisMapper extends
 		Mapper<LongWritable, Text, Text, StyleAnalysisObject> {
 
 	@Override

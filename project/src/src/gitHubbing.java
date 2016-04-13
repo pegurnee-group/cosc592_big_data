@@ -22,7 +22,7 @@ public class gitHubbing {
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-		job.setMapperClass(CodeBraceStyleMapper.class);
+		job.setMapperClass(StyleAnalysisMapper.class);
 		job.setReducerClass(StyleAnalysisReducer.class);
 
 		job.setOutputKeyClass(Text.class);
