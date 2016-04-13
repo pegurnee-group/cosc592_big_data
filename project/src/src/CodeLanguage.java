@@ -4,9 +4,10 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 
-public enum CodeLanguage implements Writable{
+public enum CodeLanguage implements WritableComparable<CodeLanguage>{
 	JS,JAVA,RUBY,PYTHON,PHP,C,CPP,OBJECTIVE_C,SWIFT;
 
 	@Override

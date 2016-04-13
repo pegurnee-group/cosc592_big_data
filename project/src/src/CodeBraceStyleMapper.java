@@ -7,7 +7,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class CodeBraceStyleMapper extends
-		Mapper<LongWritable, Text, CodeLanguage, StyleAnalysisObject> {
+		Mapper<LongWritable, Text, Text, StyleAnalysisObject> {
 	
 	@Override
 	protected void map(
@@ -42,7 +42,7 @@ public class CodeBraceStyleMapper extends
   
 	  }
 		
-	  context.write(CodeLanguage.JAVA, new StyleAnalysisObject(numberCloseBraces, numberOpenBracesOnOwnLine));
+	  context.write(new Text("Java"), new StyleAnalysisObject(numberCloseBraces, numberOpenBracesOnOwnLine));
 		
 	}
 

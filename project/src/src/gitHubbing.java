@@ -28,8 +28,8 @@ public class gitHubbing {
 		    job.setMapperClass(CodeBraceStyleMapper.class);
 		    job.setReducerClass(StyleAnalysisReducer.class);
 
-		    job.setOutputKeyClass(CodeLanguage.class);
-		    job.setOutputValueClass(Text.class);
+		    job.setOutputKeyClass(Text.class);
+		    job.setOutputValueClass(StyleAnalysisObject.class);
 
 		    System.exit(job.waitForCompletion(true) ? 0 : 1);
 	 	   }
