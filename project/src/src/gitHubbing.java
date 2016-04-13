@@ -28,7 +28,7 @@ public class gitHubbing {
 		    job.setMapperClass(CodeBraceStyleMapper.class);
 		    job.setReducerClass(StyleAnalysisReducer.class);
 
-		    job.setOutputKeyClass(LongWritable.class);
+		    job.setOutputKeyClass(CodeLanguage.class);
 		    job.setOutputValueClass(Text.class);
 
 		    System.exit(job.waitForCompletion(true) ? 0 : 1);
