@@ -13,16 +13,18 @@ public class StyleAnalysisReducer extends
 	protected void reduce(Text key, Iterable<StyleAnalysisObject> values,
 			Context context) throws IOException, InterruptedException {
 
-		double percentage = 0.0;
-		int sumOfOpening = 0, sumOfClosing = 0;
+		double percentage = 0.0, percentComment = 0.0;
+		int sumOfOpening = 0, sumOfClosing = 0, count = 0;
 
 		for (StyleAnalysisObject value : values) {
 			sumOfOpening += value.getNumberOpenBracesOnOwnLine();
 			sumOfClosing += value.getNumberCloseBraces();
-
+			percentComment += value.getNumberOfInlineComments();
+			count++;
 		}
 
 		percentage = (sumOfOpening / (sumOfOpening + (double)sumOfClosing)) * 100.0;
+		percentComment /= count * 100.0;
 
 		context.write(key, new DoubleWritable(percentage));
 	}
