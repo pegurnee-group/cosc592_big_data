@@ -1,6 +1,7 @@
 #!/bin/bash
-IN="./in"
-CREDENTIALS="./credentials"
+IN="in"
+FILTERED="filtered_out"
+CREDENTIALS="credentials"
 if (( $EUID != 0 )); then
     echo "Please run as root"
     exit
@@ -68,12 +69,15 @@ if [ $? -eq 0 ]
 then
   sudo apt-get -y install update && sudo apt-get -y upgrade
 fi
-#create 'credentials' and 'in' folder
-if [ ! -d "$CREDENTIALS" ]; then
-  mkdir "$CREDENTIALS"
+#create folders
+if [ ! -f "$CREDENTIALS" ]; then
+  echo '{"username":"","password":""}' >  "$CREDENTIALS"
 fi
 if [ ! -d "$IN" ]; then
   mkdir "$IN"
+fi
+if [ ! -d "$FILTERED" ]; then
+  mkdir "$FILTERED"
 fi
 sudo service hue stop
 sudo service hue start
