@@ -8,4 +8,4 @@ hadoop com.sun.tools.javac.Main project/src/src/*.java
 jar cf GitHubbing.jar -C project/src .
 
 hdfs dfs -rm -r -f java_out
-hadoop jar GitHubbing.jar src/gitHubbing /user/cloudera/source_code /user/cloudera/java_out
+hadoop jar GitHubbing.jar src/gitHubbing /user/cloudera/source_code_test /user/cloudera/java_out
