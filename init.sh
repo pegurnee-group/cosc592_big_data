@@ -75,3 +75,5 @@ fi
 if [ ! -d "$IN" ]; then
   mkdir "$IN"
 fi
+sudo service hue stop
+sudo service hue start
