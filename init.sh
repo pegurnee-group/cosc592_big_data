@@ -37,6 +37,7 @@ then
         sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3
       fi
     echo "Installing PyGithub and GitPython"
+    pip install --upgrade pip
     pip3 install PyGithub
     pip3 install GitPython
 else
