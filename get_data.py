@@ -10,7 +10,7 @@ opts, args = getopt.getopt(sys.argv[1:], optstring)
 
 credentials_file  = 'credentials'
 start_value       = 0
-download_number   = 3000
+download_number   = 5000
 store_file        = 'in/bigfile.json'
 archive_file      = 'in/all_repos.json'
 
