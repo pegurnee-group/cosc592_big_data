@@ -5,3 +5,5 @@ in/
 filtered_out/
 *.class
 *~
+*.jar
+error.log
