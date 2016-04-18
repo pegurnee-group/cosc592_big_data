@@ -18,6 +18,7 @@ public class StyleAnalysisMapper extends
 
 		final FileSplit fileSplit = (FileSplit) context.getInputSplit();
 		final Path path = fileSplit.getPath();
+
 		final String filename = path.getName();
 		final String fileExt = filename.substring(filename.indexOf(".") + 1);
 		final int repoNum = Integer.parseInt(path.getParent().getName());
@@ -31,7 +32,8 @@ public class StyleAnalysisMapper extends
 		int commentCounter = 0;
 
 		while (in.hasNext()) {
-			final String line = in.nextLine().trim();
+			final String nextLine = in.nextLine();
+			final String line = nextLine.trim();
 			if (line.length() != 0) {
 				if (line.charAt(0) == '{') {
 					numberOpenBracesOnOwnLine++;
@@ -42,12 +44,15 @@ public class StyleAnalysisMapper extends
 					commentCounter++;
 				}
 			}
+
 		}
 
+		final StyleAnalysisObject styleAnalysisObject = new StyleAnalysisObject(
+				numberCloseBraces, numberOpenBracesOnOwnLine, commentCounter);
+
 		context.write(new StyleAnalysisKey(fileExt, filename, repoNum),
-				new StyleAnalysisObject(numberCloseBraces,
-						numberOpenBracesOnOwnLine, commentCounter));
+				styleAnalysisObject);
 
+		in.close();
 	}
-
 }

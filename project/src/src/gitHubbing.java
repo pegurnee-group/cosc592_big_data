@@ -1,7 +1,6 @@
 package src;
 
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -25,8 +24,8 @@ public class gitHubbing {
 		job.setMapperClass(StyleAnalysisMapper.class);
 		job.setReducerClass(StyleAnalysisReducer.class);
 
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(StyleAnalysisObject.class);
+		job.setOutputKeyClass(StyleAnalysisKey.class);
+		job.setOutputValueClass(StyleAnalysisOutput.class);
 
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
