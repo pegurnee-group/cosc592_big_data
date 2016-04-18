@@ -4,6 +4,7 @@ SOURCE='source_code'
 
 if ! hdfs dfs -test -d $SOURCE; then
   hdfs dfs -mkdir $SOURCE
+fi
 
 for file in $(find ./code -iname '*.java' -or -iname '*.c' -or -iname '*.js'); do
   REPO_NUM=$( echo $file | awk -F'[/]' '{print $4}' )
