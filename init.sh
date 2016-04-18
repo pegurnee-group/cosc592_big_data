@@ -1,6 +1,7 @@
 #!/bin/bash
-IN="./in"
-CREDENTIALS="./credentials"
+IN="in"
+FILTERED="filtered_out"
+CREDENTIALS="credentials"
 if (( $EUID != 0 )); then
     echo "Please run as root"
     exit
@@ -36,6 +37,7 @@ then
         sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3
       fi
     echo "Installing PyGithub and GitPython"
+    pip3 install --upgrade pip
     pip3 install PyGithub
     pip3 install GitPython
 else
@@ -68,10 +70,15 @@ if [ $? -eq 0 ]
 then
   sudo apt-get -y install update && sudo apt-get -y upgrade
 fi
-#create 'credentials' and 'in' folder
-if [ ! -d "$CREDENTIALS" ]; then
-  mkdir "$CREDENTIALS"
+#create folders
+if [ ! -f "$CREDENTIALS" ]; then
+  echo '{"username":"","password":""}' >  "$CREDENTIALS"
 fi
 if [ ! -d "$IN" ]; then
   mkdir "$IN"
 fi
+if [ ! -d "$FILTERED" ]; then
+  mkdir "$FILTERED"
+fi
+sudo service hue stop
+sudo service hue start
