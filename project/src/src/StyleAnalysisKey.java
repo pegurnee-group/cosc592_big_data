@@ -4,9 +4,9 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
-public class StyleAnalysisKey implements Writable {
+public class StyleAnalysisKey implements WritableComparable<StyleAnalysisKey> {
 	private static final String SPLITTER = " | ";
 
 	private String filename;
@@ -23,6 +23,17 @@ public class StyleAnalysisKey implements Writable {
 		this.language = language;
 		this.filename = filename;
 		this.repoId = repoId;
+	}
+
+	private String combine() {
+		return this.language + SPLITTER + this.repoId + SPLITTER
+				+ this.filename;
+	}
+
+	@Override
+	public int compareTo(StyleAnalysisKey o) {
+		// TODO Auto-generated method stub
+		return this.combine().compareTo(o.combine());
 	}
 
 	@Override
