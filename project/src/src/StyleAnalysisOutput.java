@@ -50,6 +50,14 @@ public class StyleAnalysisOutput implements Writable {
 	}
 
 	@Override
+	public String toString() {
+		return "StyleAnalysisOutput [numberCloseBraces="
+				+ this.numberCloseBraces + ", numberOfInlineComments="
+				+ this.numberOfInlineComments + ", numberOpenBracesOnOwnLine="
+				+ this.numberOpenBracesOnOwnLine + "]";
+	}
+
+	@Override
 	public void write(DataOutput out) throws IOException {
 		out.writeDouble(this.numberCloseBraces);
 		out.writeDouble(this.numberOpenBracesOnOwnLine);
