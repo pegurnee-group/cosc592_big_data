@@ -3,21 +3,24 @@ package src;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
 public class StyleAnalysisMapper extends
-		Mapper<LongWritable, Text, Text, StyleAnalysisObject> {
+		Mapper<LongWritable, Text, StyleAnalysisKey, StyleAnalysisObject> {
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 
 		final FileSplit fileSplit = (FileSplit) context.getInputSplit();
-		final String filename = fileSplit.getPath().getName();
-		final String fileExt = filename.substring(filename.indexOf("."));
+		final Path path = fileSplit.getPath();
+		final String filename = path.getName();
+		final String fileExt = filename.substring(filename.indexOf(".") + 1);
+		final int repoNum = Integer.parseInt(path.getParent().getName());
 
 		int numberCloseBraces = 0;
 		int numberOpenBracesOnOwnLine = 0;
@@ -41,8 +44,9 @@ public class StyleAnalysisMapper extends
 			}
 		}
 
-		context.write(new Text(fileExt), new StyleAnalysisObject(
-				numberCloseBraces, numberOpenBracesOnOwnLine, commentCounter));
+		context.write(new StyleAnalysisKey(fileExt, filename, repoNum),
+				new StyleAnalysisObject(numberCloseBraces,
+						numberOpenBracesOnOwnLine, commentCounter));
 
 	}
 

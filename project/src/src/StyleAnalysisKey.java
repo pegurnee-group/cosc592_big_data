@@ -13,9 +13,20 @@ public class StyleAnalysisKey implements Writable {
 	private String language;
 	private long repoId;
 
+	public StyleAnalysisKey() {
+		this.language = null;
+		this.filename = null;
+		this.repoId = 0;
+	}
+
+	public StyleAnalysisKey(String language, String filename, long repoId) {
+		this.language = language;
+		this.filename = filename;
+		this.repoId = repoId;
+	}
+
 	@Override
 	public void readFields(DataInput in) throws IOException {
-		// TODO Auto-generated method stub
 		final String[] vals = in.readLine().split(SPLITTER);
 
 		this.language = vals[0];
@@ -25,7 +36,6 @@ public class StyleAnalysisKey implements Writable {
 
 	@Override
 	public void write(DataOutput out) throws IOException {
-		// TODO Auto-generated method stub
 		out.writeChars(this.language + SPLITTER);
 		out.writeLong(this.repoId);
 		out.writeChars(SPLITTER + this.filename);
