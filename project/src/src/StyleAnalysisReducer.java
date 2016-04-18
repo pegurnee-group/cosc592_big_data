@@ -2,16 +2,15 @@ package src;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class StyleAnalysisReducer
-		extends
-		Reducer<StyleAnalysisKey, StyleAnalysisObject, StyleAnalysisKey, StyleAnalysisOutput> {
+public class StyleAnalysisReducer extends
+		Reducer<Text, StyleAnalysisObject, Text, StyleAnalysisOutput> {
 
 	@Override
-	protected void reduce(StyleAnalysisKey key,
-			Iterable<StyleAnalysisObject> values, Context context)
-			throws IOException, InterruptedException {
+	protected void reduce(Text key, Iterable<StyleAnalysisObject> values,
+			Context context) throws IOException, InterruptedException {
 
 		double percentage = 0.0, percentComment = 0.0;
 		int sumOfOpening = 0, sumOfClosing = 0, count = 0;

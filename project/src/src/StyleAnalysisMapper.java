@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
 public class StyleAnalysisMapper extends
-		Mapper<LongWritable, Text, StyleAnalysisKey, StyleAnalysisObject> {
+		Mapper<LongWritable, Text, Text, StyleAnalysisObject> {
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context)
@@ -50,8 +50,10 @@ public class StyleAnalysisMapper extends
 		final StyleAnalysisObject styleAnalysisObject = new StyleAnalysisObject(
 				numberCloseBraces, numberOpenBracesOnOwnLine, commentCounter);
 
-		context.write(new StyleAnalysisKey(fileExt, filename, repoNum),
-				styleAnalysisObject);
+		final String keyOut = fileExt + filename + repoNum;
+		// context.write(new StyleAnalysisKey(fileExt, filename, repoNum),
+		// styleAnalysisObject);
+		context.write(new Text(keyOut), styleAnalysisObject);
 
 		in.close();
 	}
