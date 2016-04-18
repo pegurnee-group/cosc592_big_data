@@ -14,22 +14,21 @@ public class StyleAnalysisMapper extends
 	@Override
 	protected void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
-		
-		FileSplit fileSplit = (FileSplit)context.getInputSplit();
-		String filename = fileSplit.getPath().getName();
-		String fileExt = filename.substring(filename.indexOf("."));
 
-		
+		final FileSplit fileSplit = (FileSplit) context.getInputSplit();
+		final String filename = fileSplit.getPath().getName();
+		final String fileExt = filename.substring(filename.indexOf("."));
+
 		int numberCloseBraces = 0;
 		int numberOpenBracesOnOwnLine = 0;
 
 		// java regex magic -- dont need :P
 
-		Scanner in = new Scanner(value.toString());
+		final Scanner in = new Scanner(value.toString());
 		int commentCounter = 0;
-		
+
 		while (in.hasNext()) {
-			String line = in.nextLine().trim();
+			final String line = in.nextLine().trim();
 			if (line.length() != 0) {
 				if (line.charAt(0) == '{') {
 					numberOpenBracesOnOwnLine++;

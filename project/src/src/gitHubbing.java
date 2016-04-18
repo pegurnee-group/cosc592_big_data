@@ -15,7 +15,7 @@ public class gitHubbing {
 		}
 
 		@SuppressWarnings("deprecation")
-		Job job = new Job();
+		final Job job = new Job();
 		job.setJarByClass(gitHubbing.class);
 		job.setJobName("gitHubbing");
 
