@@ -23,7 +23,7 @@ public class StyleAnalysisReducer extends
 		}
 
 		percentage = (sumOfOpening / (sumOfOpening + (double) sumOfClosing)) * 100.0;
-		percentComment /= count * 100.0;
+		// percentComment /= count * 100.0;
 
 		context.write(key, new StyleAnalysisOutput(sumOfOpening, sumOfClosing,
 				percentComment));
